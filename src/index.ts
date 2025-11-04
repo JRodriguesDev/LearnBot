@@ -1,1 +1,4 @@
-console.log('Hello Wolrd')
+import {Bot} from './bot/index.js'
+
+const bot = new Bot()
+bot.start_bot()
