@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "discord.js": "^14.24.2"
+  },
+  "imports": {
+    "#interfaces": ["./build/interfaces/index.js"]
   }
 }

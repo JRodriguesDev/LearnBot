@@ -12,9 +12,8 @@
         "rootDir": "./src",
         "outDir": "./build",
 
-
-
         "paths": {
+            "#interfaces": ["./src/interfaces/index.ts"]
         }
 
     },
