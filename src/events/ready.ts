@@ -1,11 +1,11 @@
 import {Events, Client} from 'discord.js'
 
-import {EventClient} from '#interfaces'
+import {EventClient, CustomClient} from '#interfaces'
 
 export const event: EventClient = {
     name: Events.ClientReady,
     once: true,
-    execute(client :Client) {
+    execute(client: CustomClient) {
         console.log(`Bot Online: ${client.user!.tag}`)
     }
 } 

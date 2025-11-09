@@ -11,7 +11,6 @@ export class Bot {
     private events = new ev(this.client)
 
     public async start() {
-        this.client.once(Events.ClientReady, (client_ready) => {console.log(`Bot Online: ${client_ready.user.tag}`)})
         this.client.login(this.token)
     }
 }

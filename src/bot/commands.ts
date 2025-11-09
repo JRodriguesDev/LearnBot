@@ -14,10 +14,11 @@ export class Comands {
         this.token = token
 
         this.client.commands = new Collection()
-        this.set_commands()
+        //this.client.cooldowns = new Collection()
+        this.handler_commands()
     }
 
-    private async set_commands() {
+    private async handler_commands() {
         const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
         const commands_path = './src/commands' 
         const commands_files = (await fs.readdir(commands_path)).filter((file) => file.endsWith('.js') || file.endsWith('ts'))
@@ -32,17 +33,6 @@ export class Comands {
                 console.log(`Warning the command at ${path.join(commands_path, file)} is missing required data and execute property`)
             }
         }
-
-        this.client.on(Events.InteractionCreate, async (interaction: Interaction) => {
-            if (!interaction.isChatInputCommand()) return;
-            const client = interaction.client as CustomClient
-            const command = client.commands.get(interaction.commandName)
-            if (!command) {
-                console.log(`No command mathcing ${interaction.commandName} was found`)
-                return
-            }
-            await command.execute(interaction)
-        })
 
         //this.deploy_commands(commands)
     }
