@@ -36,7 +36,6 @@ export class Comands {
                 }
             }
         }
-        this.deploy_commands_global(commands)
     }
 
     private deploy_commands_dev(commands: RESTPostAPIChatInputApplicationCommandsJSONBody[]) {
@@ -62,6 +61,30 @@ export class Comands {
                 console.log(`Sucessfully reloaded ${data.length} aplication (/) commands`)
             } catch (err) {
                 console.log(err)
+            }
+        })()
+    }
+
+    private clear_commands_global() {
+        const rest = new REST().setToken(this.token);
+        (async () => {
+            try {
+                console.log(`start clear commands`)
+                const data = await rest.put(Routes.applicationCommands(process.env.BOT_ID!), {body: []}) as RESTPostAPIChatInputApplicationCommandsJSONBody[]
+            } catch (err) {
+                console.log(`Error: ${err}`)
+            }
+        })()
+    }
+
+    private clear_commands_dev() {
+        const rest = new REST().setToken(this.token);
+        (async () => {
+            try {
+                console.log(`start clear commands`)
+                const data = await rest.put(Routes.applicationGuildCommands(process.env.BOT_ID!, process.env.GUILD_ID!), {body: []}) as RESTPostAPIChatInputApplicationCommandsJSONBody[]
+            } catch (err) {
+                console.log(`Error: ${err}`)
             }
         })()
     }

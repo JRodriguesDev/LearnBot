@@ -7,35 +7,9 @@ export const command: Command = {
     data: new SlashCommandBuilder()
                 .setName('set_wallet')
                 .setDescription('Definir Carteira')
-                .addStringOption((option) => option.setName('user').setDescription('Selecione o usuario').setAutocomplete(true))
+                .addUserOption((option) => option.setName('user').setDescription('Selecione o usuario'))
                 .setContexts(InteractionContextType.Guild)
                 .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
-
-    async auto_complete(interaction) {
-        const focused_value = interaction.options.getFocused()
-        const guild = interaction.guild
-
-        if (!guild) {
-            await interaction.respond([])
-            return
-        }
-
-        await guild.members.fetch()
-        const members = guild?.members.cache
-                                        .filter(member => member.user.username.toLowerCase().startsWith(focused_value.toLowerCase()))
-                                        .first(10)
-        if (!members || members.length == 0) {
-            await interaction.respond([
-                {name: `Nenhum usuario encotrado`, value: 'none'}
-            ])
-        return
-        }
-
-        await interaction.respond(members.map(member => ({
-            name: member.user.username,
-            value: member.user.id
-        })))
-    },
 
     async execute(interaction) {
         interaction.reply({

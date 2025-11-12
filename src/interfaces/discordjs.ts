@@ -1,4 +1,4 @@
-import { Client, Collection, AutocompleteInteraction, ChatInputCommandInteraction, SlashCommandBuilder, Events, SlashCommandOptionsOnlyBuilder} from "discord.js";
+import { Client, Collection, AutocompleteInteraction, ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandSubcommandBuilder, Events, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
 
 export class CustomClient extends Client {
     public commands = new Collection<string, Command>()
@@ -6,10 +6,10 @@ export class CustomClient extends Client {
 }
 
 export abstract class Command {
-    abstract data: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder
+    abstract data: SlashCommandBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandSubcommandsOnlyBuilder
     abstract execute: (interaction: ChatInputCommandInteraction) => Promise<void>
     abstract cooldown?: number
-    abstract auto_complete?: (interaction: AutocompleteInteraction) => Promise<void>
+    abstract auto_complete?: (interaction: AutocompleteInteraction) => Promise<void | any>
 }
 
 export abstract class EventInteraction {
