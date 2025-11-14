@@ -1,12 +1,14 @@
-import { SlashCommandBuilder } from 'discord.js'
+import { SlashCommandBuilder, InteractionContextType, PermissionFlagsBits, MessageFlags } from 'discord.js'
 
 import {Command} from '#interfaces'
 
 export const command: Command = {
-    cooldown: 5,
+    cooldown: 3,
     data: new SlashCommandBuilder()
                 .setName('user')
                 .setDescription('gerenciar usuario')
+                .setContexts(InteractionContextType.Guild)
+                .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
                 .addSubcommand((sub => 
                     sub
                         .setName('profile')
@@ -32,13 +34,13 @@ export const command: Command = {
 
         switch (sub) {
             case 'profile':
-                await interaction.reply(`user profile: ${user}`)
+                await interaction.reply({content: `user profile: ${user}`, flags: MessageFlags.Ephemeral})
                 break;
             case 'kick':
-                await interaction.reply(`${user} foi kikcado por admin ${interaction.user.username}`)
+                await interaction.reply({content: `${user} foi kikcado por admin ${interaction.user.username}`, flags: MessageFlags.Ephemeral})
                 break;
             case 'ban':
-                await interaction.reply(`${user} foi banido por admin ${interaction.user.username}`)
+                await interaction.reply({content: `${user} foi banido por admin ${interaction.user.username}`, flags: MessageFlags.Ephemeral})
                 break;
         }
 

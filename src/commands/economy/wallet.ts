@@ -4,7 +4,7 @@ import {Command} from '#interfaces'
 
 export const command: Command = {
     data: new SlashCommandBuilder()
-                .setName('wallet')
+                .setName('my_wallet')
                 .setDescription('Valor da Carteira'),
     cooldown: 5,
     async execute(interaction) {

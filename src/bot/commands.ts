@@ -36,6 +36,7 @@ export class Comands {
                 }
             }
         }
+        this.deploy_commands_dev(commands)
     }
 
     private deploy_commands_dev(commands: RESTPostAPIChatInputApplicationCommandsJSONBody[]) {
@@ -44,7 +45,7 @@ export class Comands {
             try {
                 console.log(`Start refreshing ${commands.length} aplication (/) commands.`)
                 const data = await rest.put(Routes.applicationGuildCommands(process.env.BOT_ID!, process.env.GUILD_ID!), {body: commands}) as RESTPostAPIChatInputApplicationCommandsJSONBody[]
-                console.log(data)
+                //console.log(data)
                 console.log(`Sucessfully reloaded ${data.length} aplication (/) commands`)
             } catch (err) {
                 console.log(err)
