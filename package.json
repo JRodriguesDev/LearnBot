@@ -22,6 +22,9 @@
   "imports": {
     "#interfaces": [
       "./build/interfaces/index.js"
+    ],
+    "#prisma": [
+      "./src/utils/prisma/index.js"
     ]
   }
 }

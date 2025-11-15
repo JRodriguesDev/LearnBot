@@ -13,7 +13,8 @@
         "outDir": "./build",
 
         "paths": {
-            "#interfaces": ["./src/interfaces/index.ts"]
+            "#interfaces": ["./src/interfaces/index.ts"],
+            "#prisma": ["./src/utils/prisma/index.ts"]
         }
 
     },

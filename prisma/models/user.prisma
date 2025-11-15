@@ -1,0 +1,10 @@
+model User {
+    id  String @id @map("_id")
+    name String 
+    email String @unique
+    password String
+
+    wallet Wallet?
+
+    @@map("user")
+}

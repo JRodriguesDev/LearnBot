@@ -1,0 +1,9 @@
+model Wallet {
+    id  String @id @default(auto()) @map("_id") @db.ObjectId
+    coin Float
+    
+    userId String @unique
+    user User? @relation(fields: [userId], references: [id])
+
+    @@map("wallet")
+}
