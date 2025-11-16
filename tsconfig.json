@@ -14,7 +14,9 @@
 
         "paths": {
             "#interfaces": ["./src/interfaces/index.ts"],
-            "#prisma": ["./src/utils/prisma/index.ts"]
+            "#prisma": ["./src/utils/prisma/index.ts"],
+            "#user_controller": ["./src/db/controllers/user.ts"],
+            "#wallet_controller": ["./src/db/controllers/wallet.ts"]
         }
 
     },

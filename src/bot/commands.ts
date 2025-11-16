@@ -21,10 +21,10 @@ export class Comands {
     private async handler_commands() {
         const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
         const commands_path = './src/commands' 
-        const commands_folders = (await fs.readdir(commands_path))
+        const commands_folders = await fs.readdir(commands_path)
 
         for (const folder of commands_folders) {
-            const commands_files = (await fs.readdir(path.join(commands_path, folder)))
+            const commands_files = await fs.readdir(path.join(commands_path, folder))
             for (const file of commands_files) {
                 const file_path = pathToFileURL(path.join(commands_path, folder, file)).href
                 const command: Command = (await import(file_path)).command
@@ -36,7 +36,7 @@ export class Comands {
                 }
             }
         }
-        this.deploy_commands_dev(commands)
+        //this.deploy_commands_dev(commands)
     }
 
     private deploy_commands_dev(commands: RESTPostAPIChatInputApplicationCommandsJSONBody[]) {

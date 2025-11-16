@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
+    "bcryptjs": "^3.0.3",
     "discord.js": "^14.24.2",
     "dotenv": "^17.2.3"
   },
@@ -25,6 +26,12 @@
     ],
     "#prisma": [
       "./src/utils/prisma/index.js"
+    ],
+    "#user_controller": [
+      "./src/db/controllers/user.js"
+    ],
+    "#wallet_controller": [
+      "./src/db/controllers/wallet.js"
     ]
   }
 }

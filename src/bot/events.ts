@@ -15,15 +15,18 @@ export class Events {
 
     private async handler_events() {
         const events_path = './src/events'
-        const events_files = (await fs.readdir(events_path)).filter((file) => file.endsWith('.js') || file.endsWith('ts'))
+        const events_folders = await fs.readdir(events_path)
 
-        for (const file of events_files) {
-            const file_path = pathToFileURL(path.join(events_path, file)).href
-            const event: Event = (await import(file_path)).event
-            if ('once' in event) {
-                this.client.once(event.name as keyof ClientEvents, (...args: any[]) => event.execute(...args))
-            } else {
-                this.client.on(event.name as keyof ClientEvents, (...args: any[]) => event.execute(...args))
+        for (const folder of events_folders) {
+            const event_files = await fs.readdir(path.join(events_path, folder))
+            for (const file of event_files) {
+                const file_path = pathToFileURL(path.join(events_path, folder, file)).href
+                const event: Event = (await import(file_path)).event
+                if ('once' in event) {
+                    this.client.once(event.name as keyof ClientEvents, (...args: any[]) => event.execute(...args))
+                } else {
+                    this.client.on(event.name as keyof ClientEvents, (...args: any[]) => event.execute(...args))
+                }
             }
         }
     }   
