@@ -1,6 +1,7 @@
-import {SlashCommandBuilder, PermissionFlagsBits, InteractionContextType, MessageFlags, TextDisplayBuilder} from 'discord.js'
+import {SlashCommandBuilder, PermissionFlagsBits, InteractionContextType, MessageFlags} from 'discord.js'
 
 import {Command} from '#interfaces'
+import {get, set, reset} from '#wallet_controller'
 
 export const command: Command = {
     cooldown: 3,
@@ -20,6 +21,7 @@ export const command: Command = {
                         .setName('set')
                         .setDescription('Definir carteira do usuario')
                         .addUserOption((option) => option.setName('target').setDescription('the user').setRequired(true))
+                        .addIntegerOption((option) => option.setName('amount').setDescription('Novo Valor de Reis reis').setRequired(true))
                 )
                 .addSubcommand((sub) =>
                     sub
@@ -33,17 +35,17 @@ export const command: Command = {
 
         switch (sub) {
             case 'view':
-                const text = new TextDisplayBuilder().setContent(`Carteira de ${user} foi olhada por ${interaction.user.username}`)
-                interaction.reply({
-                    flags: MessageFlags.IsComponentsV2,
-                    components: [text]
-                })
+                const wallet = await get(interaction.user.id)
+                await interaction.reply({content: `Carteira de ${user} tem reis ${wallet?.coin}`, flags: MessageFlags.Ephemeral})
                 break;
             case 'set':
-                await interaction.reply({content: `Setando ${user}`, flags: MessageFlags.Ephemeral})
+                const value = interaction.options.getInteger('amount')!
+                const updated = await set(interaction.user.id, value)
+                await interaction.reply({content: `carteira de ${user} teve uma leve alteraçao para ${updated?.coin} Reis Reis`, flags: MessageFlags.Ephemeral})
                 break;
-            case 'delete':
-                await interaction.reply({content: `deletando ${user}`, flags: MessageFlags.Ephemeral})
+            case 'reset':
+                await reset(interaction.user.id)
+                await interaction.reply({content: `A Carteira de ${user} foi resetada`, flags: MessageFlags.Ephemeral})
                 break;
         }
     }

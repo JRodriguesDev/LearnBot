@@ -20,6 +20,6 @@
         }
 
     },
-    "include": ["src"],
+    "include": ["src", "wallet.tsss"],
     "exclude": ["node_modules"]
 }

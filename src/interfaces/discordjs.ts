@@ -1,4 +1,4 @@
-import { Client, Collection, AutocompleteInteraction, ModalSubmitInteraction, ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandSubcommandBuilder, Events, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
+import { Client, Collection, AutocompleteInteraction, ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandSubcommandBuilder, Events, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
 
 export class CustomClient extends Client {
     public commands = new Collection<string, Command>()
@@ -23,5 +23,5 @@ export abstract class EventClient {
     abstract execute: (...args: any[]) => void
 }
 
-export type Event = EventClient | EventInteraction
+export type CustomEvent = EventClient | EventInteraction
 

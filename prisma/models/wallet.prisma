@@ -1,9 +1,12 @@
 model Wallet {
     id  String @id @default(auto()) @map("_id") @db.ObjectId
-    coin Float
+    coin Int
     
     userId String @unique
     user User? @relation(fields: [userId], references: [id])
+
+    lastDaily Int?
+    streak Int @default(1)
 
     @@map("wallet")
 }

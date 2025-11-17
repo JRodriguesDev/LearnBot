@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, InteractionContextType, PermissionFlagsBits, MessageFlags } from 'discord.js'
 
 import {Command} from '#interfaces'
+import {get} from '#user_controller'
 
 export const command: Command = {
     cooldown: 3,
@@ -14,8 +15,8 @@ export const command: Command = {
                         .setName('profile')
                         .setDescription('mostrar perfil do usuario')
                         .addUserOption((option) => option.setName('target').setDescription('the user').setRequired(true))
-                ))
-                .addSubcommand((sub => 
+                )),
+                /*.addSubcommand((sub => 
                     sub
                         .setName('kick')
                         .setDescription('Kickar Usuario')
@@ -26,21 +27,16 @@ export const command: Command = {
                         .setName('ban')
                         .setDescription('Banir Usuario')
                         .addUserOption((option) => option.setName('target').setDescription('the user').setRequired(true))
-                )),
+                )),*/
 
     async execute(interaction) {
         const sub = interaction.options.getSubcommand()
         const user = interaction.options.getUser('target')
-
+            
         switch (sub) {
             case 'profile':
-                await interaction.reply({content: `user profile: ${user}`, flags: MessageFlags.Ephemeral})
-                break;
-            case 'kick':
-                await interaction.reply({content: `${user} foi kikcado por admin ${interaction.user.username}`, flags: MessageFlags.Ephemeral})
-                break;
-            case 'ban':
-                await interaction.reply({content: `${user} foi banido por admin ${interaction.user.username}`, flags: MessageFlags.Ephemeral})
+                const data = await get(interaction.user.id)
+                await interaction.reply({content: `user profile: ${data?.name} ${data?.wallet?.coin}`, flags: MessageFlags.Ephemeral})
                 break;
         }
 

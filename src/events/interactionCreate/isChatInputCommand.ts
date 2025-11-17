@@ -6,22 +6,16 @@ export const event: EventInteraction = {
 	name: Events.InteractionCreate,
 	async execute(interaction: Interaction) {
 		const client = interaction.client as CustomClient
-
-		if (interaction.isAutocomplete()) {
-			const command = client.commands.get(interaction.commandName)
-			try {
-				await command!.auto_complete!(interaction)
-			} catch (err) {
-				console.log(err)
-			}
-		}
-
+		
 		if (interaction.isChatInputCommand()) {;
 			const command = client.commands.get(interaction.commandName);
-			
 			if (!command) {
 				console.error(`No command matching ${interaction.commandName} was found.`);
 				return;
+			}
+			const member = await interaction.guild?.members.fetch(interaction.user.id)
+			if (command.data.name !== 'join') {
+				if (!member?.roles.cache.has('1439694366502289549')) return interaction.reply({content: `Voce nao e diferente use **/join**`, flags: MessageFlags.Ephemeral}) 
 			}
 
 			const {cooldowns} = client 

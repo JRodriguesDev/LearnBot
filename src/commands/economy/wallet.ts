@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, MessageFlags } from "discord.js";
 
 import {Command} from '#interfaces'
+import {get} from '#wallet_controller'
 
 export const command: Command = {
     data: new SlashCommandBuilder()
@@ -8,8 +9,10 @@ export const command: Command = {
                 .setDescription('Valor da Carteira'),
     cooldown: 5,
     async execute(interaction) {
+        const coin = await get(interaction.user.id)
+
         await interaction.reply({
-            content: `${interaction.user.id} Possui 0 Reis Reis`,
+            content: `${interaction.user.username} Possui ${coin?.coin} Reis Reis`,
             flags: MessageFlags.Ephemeral
         })
     }

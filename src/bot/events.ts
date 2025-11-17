@@ -2,7 +2,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { pathToFileURL } from 'url'
 
-import {CustomClient, Event} from '#interfaces'
+import {CustomClient, CustomEvent} from '#interfaces'
 import { ClientEvents } from 'discord.js'
 
 export class Events {
@@ -21,7 +21,7 @@ export class Events {
             const event_files = await fs.readdir(path.join(events_path, folder))
             for (const file of event_files) {
                 const file_path = pathToFileURL(path.join(events_path, folder, file)).href
-                const event: Event = (await import(file_path)).event
+                const event: CustomEvent = (await import(file_path)).event
                 if ('once' in event) {
                     this.client.once(event.name as keyof ClientEvents, (...args: any[]) => event.execute(...args))
                 } else {
