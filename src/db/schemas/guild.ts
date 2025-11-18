@@ -6,7 +6,6 @@ export const create_guild = async (id: string, roleId: string, name: string) => 
             id: id,
             name: name,
             roleId: roleId,
-            roleCreated: true
         },
         select: {
             name: true,
