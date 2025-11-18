@@ -32,20 +32,31 @@ export const command: Command = {
     async execute(interaction) {
         const sub = interaction.options.getSubcommand()
         const user = interaction.options.getUser('target')
-
+        const wallet = await get(user!.id)
         switch (sub) {
             case 'view':
-                const wallet = await get(interaction.user.id)
-                await interaction.reply({content: `Carteira de ${user} tem reis ${wallet?.coin}`, flags: MessageFlags.Ephemeral})
+                if (wallet) {
+                    await interaction.reply({content: `A Carteira de **${user}** tem **$${wallet?.coin} Reis Reis**`, flags: MessageFlags.Ephemeral})
+                    break
+                }
+                await interaction.reply({content: `O Usuario: **${user}**\n Não e Diferente`, flags: MessageFlags.Ephemeral})
                 break;
             case 'set':
-                const value = interaction.options.getInteger('amount')!
-                const updated = await set(interaction.user.id, value)
-                await interaction.reply({content: `carteira de ${user} teve uma leve alteraçao para ${updated?.coin} Reis Reis`, flags: MessageFlags.Ephemeral})
+                if (wallet) {
+                    const value = interaction.options.getInteger('amount')!
+                    const updated = await set(interaction.user.id, value)
+                    await interaction.reply({content: `A Carteira de **${user}** sofreu uma leve alteração para **$${updated?.coin} Reis Reis**`})
+                    break;
+                }
+                await interaction.reply({content: `O Usuario: **${user}**\n Não e Diferente`, flags: MessageFlags.Ephemeral})
                 break;
             case 'reset':
-                await reset(interaction.user.id)
-                await interaction.reply({content: `A Carteira de ${user} foi resetada`, flags: MessageFlags.Ephemeral})
+                if (wallet) {
+                    await reset(interaction.user.id)
+                    await interaction.reply({content: `A Carteira de **$${user}** foi **resetada**`, flags: MessageFlags.Ephemeral})
+                    break;
+                }
+                await interaction.reply({content: `O Usuario: **${user}**\n Não e Diferente`, flags: MessageFlags.Ephemeral})
                 break;
         }
     }

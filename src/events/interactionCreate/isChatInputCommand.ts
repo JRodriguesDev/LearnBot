@@ -1,6 +1,7 @@
 import {Events, MessageFlags, Interaction, Collection} from 'discord.js'
 
 import {CustomClient, EventInteraction} from '#interfaces'
+import {get} from '#guild_controller'
 
 export const event: EventInteraction = {
 	name: Events.InteractionCreate,
@@ -15,7 +16,8 @@ export const event: EventInteraction = {
 			}
 			const member = await interaction.guild?.members.fetch(interaction.user.id)
 			if (command.data.name !== 'join') {
-				if (!member?.roles.cache.has('1439694366502289549')) return interaction.reply({content: `Voce nao e diferente use **/join**`, flags: MessageFlags.Ephemeral}) 
+				const role_id = await get(interaction.guildId!)
+				if (!member?.roles.cache.has(role_id?.roleId!)) return interaction.reply({content: 'Voce não e **Diferente** use\n `/join`', flags: MessageFlags.Ephemeral}) 
 			}
 
 			const {cooldowns} = client 

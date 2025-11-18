@@ -12,7 +12,7 @@ export const command: Command = {
         const coin = await get(interaction.user.id)
 
         await interaction.reply({
-            content: `${interaction.user.username} Possui ${coin?.coin} Reis Reis`,
+            content: `## Carteira de ${interaction.user.username}:\n**$${coin?.coin} Reis Reis**`,
             flags: MessageFlags.Ephemeral
         })
     }

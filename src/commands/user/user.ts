@@ -35,8 +35,12 @@ export const command: Command = {
             
         switch (sub) {
             case 'profile':
-                const data = await get(interaction.user.id)
-                await interaction.reply({content: `user profile: ${data?.name} ${data?.wallet?.coin}`, flags: MessageFlags.Ephemeral})
+                const data = await get(user!.id)
+                if (data) {
+                    await interaction.reply({content: `## user profile: ${data?.name}:\n **$${data?.wallet?.coin} Reis Reis**`, flags: MessageFlags.Ephemeral})
+                    break;
+                }
+                await interaction.reply({content: `O Usuario: **${user}**\n Não e Diferente`})
                 break;
         }
 

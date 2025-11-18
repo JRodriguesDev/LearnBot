@@ -1,0 +1,10 @@
+model Guild {
+    id String @id @map("_id")
+    name String
+    role String @default("Diferente")
+    roleId String?
+    roleCreated Boolean @default(false)
+
+
+    @@map("guild")
+}

@@ -32,6 +32,12 @@
     ],
     "#wallet_controller": [
       "./src/db/controllers/wallet.js"
+    ],
+    "#guild_controller": [
+      "./src/db/controllers/guild.js"
+    ],
+    "#discord": [
+      "./src/utils/discordjs/index.js"
     ]
   }
 }

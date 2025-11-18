@@ -8,7 +8,7 @@ export const event: EventClient = {
     async execute(client: CustomClient) {
         console.log(`Bot Online: ${client.user!.tag}`)
 
-        for (const [id, guild] of client.guilds.cache) {
+        for (const [, guild] of client.guilds.cache) {
             try {
                 await guild.members.fetch()
                 console.log(`Members loaded ${guild.name} ${guild.memberCount} members`)

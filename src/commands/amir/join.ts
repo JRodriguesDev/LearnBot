@@ -1,6 +1,8 @@
-import {SlashCommandBuilder, InteractionContextType, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ModalActionRowComponentBuilder } from 'discord.js'
+import {SlashCommandBuilder, InteractionContextType, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, ModalActionRowComponentBuilder, MessageFlags } from 'discord.js'
 
 import {Command} from '#interfaces'
+import {get as user_get} from '#user_controller'
+import {get as guild_get} from '#guild_controller'
 
 export const command: Command = {
     cooldown: 3,
@@ -10,6 +12,14 @@ export const command: Command = {
                 .setContexts(InteractionContextType.Guild),
     
     async execute(interaction) {
+        const user = await user_get(interaction.user.id)
+        if (user) {
+            const role = await guild_get(interaction.guildId!)
+            const member = await interaction.guild?.members.fetch(interaction.user.id)
+            await member?.roles.add(role?.roleId!)
+            await interaction.reply({content: `**${interaction.user.username}** teve seu Cargo Reatribuido`, flags: MessageFlags.Ephemeral})
+            return
+        }
         const modal = new ModalBuilder().setCustomId('form').setTitle('Torna-se Diferente')
 
         const email_input = new TextInputBuilder().setCustomId('email_input').setLabel('Qual seu Email').setStyle(TextInputStyle.Short).setRequired(true)

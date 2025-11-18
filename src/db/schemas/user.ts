@@ -1,5 +1,5 @@
 import prisma from "#prisma";
-import { Prisma } from "#prisma";
+import type{ Prisma } from "#prisma";
 
 export const create_user = async(data: Prisma.UserCreateInput) => {
     const user = await prisma.user.create({
