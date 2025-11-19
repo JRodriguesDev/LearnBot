@@ -36,7 +36,7 @@ export class Comands {
                 }
             }
         }
-        this.deploy_commands_dev(commands)
+        // this.deploy_commands_dev(commands)
     }
 
     private deploy_commands_dev(commands: RESTPostAPIChatInputApplicationCommandsJSONBody[]) {

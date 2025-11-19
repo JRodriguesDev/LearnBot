@@ -6,7 +6,7 @@ import {CustomClient} from '#interfaces'
 
 export class Bot {
     private token: string = process.env.TOKEN_JS!
-    private client = new CustomClient({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers]})
+    private client = new CustomClient({intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates]})
     private commands = new Comands(this.client, this.token)
     private events = new ev(this.client)
 

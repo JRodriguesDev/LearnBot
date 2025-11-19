@@ -8,7 +8,7 @@ export const event: EventInteraction = {
 	async execute(interaction: Interaction) {
 		const client = interaction.client as CustomClient
 		
-		if (interaction.isChatInputCommand()) {;
+		if (interaction.isChatInputCommand()) {
 			const command = client.commands.get(interaction.commandName);
 			if (!command) {
 				console.error(`No command matching ${interaction.commandName} was found.`);

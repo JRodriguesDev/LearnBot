@@ -22,6 +22,6 @@
         }
 
     },
-    "include": ["src", "wallet.tsss"],
+    "include": ["src", "wallet.tsss", "src/events/voice"],
     "exclude": ["node_modules"]
 }
